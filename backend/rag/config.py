@@ -1,10 +1,13 @@
 
 from pathlib import Path
 
+import os
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 UPLOAD_DIR = PROJECT_ROOT / "backend" / "uploads"
-CHROMA_DIR = PROJECT_ROOT / "backend" / "chroma_db"
+# Use environment variable for persistent chroma directory, default to /app/chroma_db on Render
+CHROMA_DIR = Path(os.getenv("CHROMA_PERSIST_DIR", "/app/chroma_db"))
 
 COLLECTION_NAME = "evalora_knowledge"
 
