@@ -29,4 +29,4 @@ ENV PORT=${PORT:-10000}
 EXPOSE $PORT
 
 # Start FastAPI with a single worker to limit memory usage
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "$PORT", "--workers", "1"]
+CMD uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-10000} --workers 1
