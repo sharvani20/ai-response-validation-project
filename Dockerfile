@@ -1,10 +1,13 @@
 # Dockerfile – Render deployment (memory‑optimized)
+
 FROM python:3.11-slim AS base
 
 # Install minimal system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc && \
+    rm -rf /var/lib/apt/lists/*
 
-# Create a non‑root user
+# Create a non‑root user and set workdir
 RUN useradd -m appuser
 WORKDIR /app
 
@@ -12,10 +15,11 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source code (backend and frontend)
-COPY backend ./backend
-COPY frontend ./frontend
-COPY .env.example .env    # will be overridden in Render UI
+# Copy the entire source tree (backend, frontend, etc.)
+COPY . .
+
+# Create directory for persistent ChromaDB storage
+RUN mkdir -p /app/chroma_db
 
 # Switch to non‑root user
 USER appuser

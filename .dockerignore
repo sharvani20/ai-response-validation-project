@@ -1,0 +1,22 @@
+# Exclude version control and unnecessary build artefacts
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.egg-info
+dist
+build
+*.log
+
+# Exclude local Python virtual environments
+venv
+.env
+.env.*
+
+# Exclude large notebooks (optional)
+*.ipynb
+
+# Exclude node modules (frontend)
+frontend/node_modules
